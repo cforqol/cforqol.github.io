@@ -24,6 +24,7 @@ Promote a page when you've leaned on it twice without editing it. Demote it when
 
 | Page | Status | Updated |
 |------|--------|---------|
+| [ZFS](zfs/index.md) | <span class="status status-draft">draft</span> | 2026-10-25 |
 
 ## Templates
 

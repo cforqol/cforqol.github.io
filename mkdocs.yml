@@ -51,10 +51,20 @@ nav:
   - Home: index.md
   - Quick starts:
       - quickstarts/index.md
+      - borgbackup: quickstarts/borgbackup.md
       - grep: quickstarts/grep.md
+      - screen: quickstarts/screen.md
       - sed: quickstarts/sed.md
+      - zfs: quickstarts/zfs.md
+      - zpool: quickstarts/zpool.md
   - Handbook:
       - handbook/index.md
+      - ZFS:
+        - handbook/zfs/index.md
+        - Pool Creation: handbook/zfs/pool-creation.md
+        - Vdevs and Mirrors: handbook/zfs/vdevs.md
+        - Mountpoints: handbook/zfs/mountpoints.md
+        - Snapshots: handbook/zfs/snapshots.md
   - Tools:
       - tools/index.md
       #- noteroot: '!import https://github.com/cforqol/noteroot?branch=main&edit_uri=/blob/main/'
