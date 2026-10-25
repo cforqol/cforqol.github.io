@@ -1,0 +1,6 @@
+nav:
+  - index.md
+  - Pool creation: pool-creation.md
+  - Vdevs and mirrors: vdevs.md
+  - Mountpoints: mountpoints.md
+  - Snapshots: snapshots.md
