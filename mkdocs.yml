@@ -1,0 +1,101 @@
+site_name: cforqol
+site_url: https://cforqol.github.io/
+site_description: Quick starts and a handbook for things that make life easier.
+repo_url: https://github.com/cforqol/cforqol.github.io
+repo_name: cforqol/cforqol.github.io
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+plugins:
+  - search
+  - tags
+  - multirepo:
+      cleanup: true
+
+nav:
+  - Home: index.md
+  - Quick starts:
+      - quickstarts/index.md
+      - grep: quickstarts/grep.md
+      - sed: quickstarts/sed.md
+  - Handbook:
+      - handbook/index.md
+      - Home network: handbook/home-network.md
+  - Tools:
+      - tools/index.md
+      - noteroot: '!import https://github.com/cforqol/noteroot?branch=main&edit_uri=/blob/main/'
+  - Tags: tags.md
+  - About:
+      - about.md
+      - Page templates:
+          - Quick start: templates/quickstart.md
+          - Handbook page: templates/handbook-page.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cforqol

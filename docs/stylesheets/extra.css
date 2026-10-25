@@ -1,0 +1,14 @@
+.md-typeset .status {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: .12rem .5rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  vertical-align: middle;
+}
+.md-typeset .status-draft   { color: #9ca3af; }
+.md-typeset .status-working { color: #3b82f6; }
+.md-typeset .status-stable  { color: #22c55e; }
