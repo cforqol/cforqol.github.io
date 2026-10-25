@@ -5,7 +5,7 @@ tags: [zfs, storage]
 
 How storage on this machine is laid out, and why.
 
-Commands are in the [zpool](../quickstarts/zpool.md) and [zfs](../quickstarts/zfs.md) quick starts. This section is the reasoning.
+Commands are in the [zpool](../../quickstarts/zpool.md) and [zfs](../../quickstarts/zfs.md) quick starts. This section is the reasoning.
 
 ## Read in this order
 

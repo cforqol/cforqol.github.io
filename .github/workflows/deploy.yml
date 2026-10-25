@@ -1,4 +1,5 @@
 name: deploy docs
+
 on:
   push: { branches: [main] }
   schedule: [{ cron: '0 6 * * *' }]
@@ -18,19 +19,84 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
-      - uses: actions/cache@v4
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: cache
+        uses: actions/cache@v4
         with:
           key: mkdocs-material-${{ github.run_id }}
           path: ~/.cache
           restore-keys: mkdocs-material-
-      - run: pip install -r requirements.txt
-      - run: mkdocs build
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with: { path: site }
+
+      - name: pull tool docs
+        env:
+          TOOL_DOCS_TOKEN: ${{ secrets.TOOL_DOCS_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/tools
+
+          while read -r repo; do
+            url="https://github.com/cforqol/${repo}.git"
+            if [ -n "${TOOL_DOCS_TOKEN:-}" ]; then
+              url="https://x-access-token:${TOOL_DOCS_TOKEN}@github.com/cforqol/${repo}.git"
+            fi
+
+            git clone --depth 1 --quiet "$url" "/tmp/tools/$repo" \
+              || { echo "::error::cannot clone cforqol/$repo"; exit 1; }
+
+            if [ ! -d "/tmp/tools/$repo/docs" ]; then
+              echo "::warning::cforqol/$repo has no docs/ — skipped"
+              continue
+            fi
+
+            mkdir -p "docs/tools/$repo"
+            cp -r "/tmp/tools/$repo/docs/." "docs/tools/$repo/"
+            echo "pulled cforqol/$repo"
+          done < <(grep -vE '^\s*(#|$)' .github/tool-docs.txt)
+
+      - name: install
+        run: pip install -r requirements.txt
+
+      - name: build
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdocs build 2>&1 | tee build.log
+
+      - name: surface build error
+        if: failure()
+        shell: bash
+        run: |
+          [ -f build.log ] || exit 0
+          echo '===== build.log, last 30 lines ====='
+          tail -n 30 build.log
+          echo '===== as annotations ====='
+          while IFS= read -r line; do
+            [ -n "$line" ] && echo "::error::${line}"
+          done < <(tail -n 15 build.log)
+
+      - name: upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+
+      - name: configure pages
+        uses: actions/configure-pages@v5
+
+      - name: upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
 
   deploy:
     needs: build
@@ -39,5 +105,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: deploy
+        id: deployment
         uses: actions/deploy-pages@v4

@@ -114,5 +114,5 @@ zfs send -w tank/secret@snap | ssh host zfs recv backup/secret
 ## Related
 
 - [zpool](zpool.md) — pool creation, scrubs, disk replacement
-- [ZFS snapshots handbook](../handbook/zfs-snapshots.md) — naming, retention, automation, recovery
+- [ZFS snapshots handbook](../handbook/zfs/snapshots.md) — naming, retention, automation, recovery
 - [borgbackup](borgbackup.md) — offsite, deduplicated copies

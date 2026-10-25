@@ -1,0 +1,2 @@
+# one repo per line, under cforqol/
+noteroot

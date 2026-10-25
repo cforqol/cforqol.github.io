@@ -80,3 +80,7 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/cforqol
+
+validation:
+  nav:
+    omitted_files: ignore
