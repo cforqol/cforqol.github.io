@@ -55,10 +55,9 @@ nav:
       - sed: quickstarts/sed.md
   - Handbook:
       - handbook/index.md
-      - Home network: handbook/home-network.md
   - Tools:
       - tools/index.md
-      - noteroot: '!import https://github.com/cforqol/noteroot?branch=main&edit_uri=/blob/main/'
+      #- noteroot: '!import https://github.com/cforqol/noteroot?branch=main&edit_uri=/blob/main/'
   - Tags: tags.md
   - About:
       - about.md
