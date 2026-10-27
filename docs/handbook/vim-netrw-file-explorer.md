@@ -109,4 +109,3 @@ augroup END
 ## Change log
 
 - 2023-10-26 — first write-up
-```
