@@ -244,6 +244,3 @@ uci commit pbr
 ## Change log
 
 - 2025-01-15 — first write-up
-```
-
-You can copy this directly into a new file in your `docs/` folder. Adjust the date and tags as needed for your site's organization.
