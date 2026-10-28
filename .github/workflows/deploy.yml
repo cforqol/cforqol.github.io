@@ -63,7 +63,9 @@ jobs:
 
             # MkDocs resolves index.md; GitHub's folder preview needs README.md.
             # Normalise the build copy only — the source repo keeps its README.
-            if [ -f "$dest/README.md" ]; then
+            if [ ! -f "$dest/README.md" ]; then
+              cp "/tmp/tools/$repo/README.md" "$dest/index.md"
+            elif [ -f "$dest/README.md" ]; then
               mv "$dest/README.md" "$dest/index.md"
             fi
 
