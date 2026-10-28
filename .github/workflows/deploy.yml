@@ -42,32 +42,48 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/tools
-
           while read -r repo; do
             url="https://github.com/cforqol/${repo}.git"
             if [ -n "${TOOL_DOCS_TOKEN:-}" ]; then
               url="https://x-access-token:${TOOL_DOCS_TOKEN}@github.com/cforqol/${repo}.git"
             fi
-
             git clone --depth 1 --quiet "$url" "/tmp/tools/$repo" \
               || { echo "::error::cannot clone cforqol/$repo"; exit 1; }
 
-            if [ ! -d "/tmp/tools/$repo/docs" ]; then
-              echo "::warning::cforqol/$repo has no docs/ — skipped"
+            src="/tmp/tools/$repo"
+            if [ ! -d "$src/docs" ] && [ ! -f "$src/README.md" ]; then
+              echo "::warning::cforqol/$repo has neither docs/ nor README.md — skipped"
               continue
             fi
 
             dest="docs/tools/$repo"
             mkdir -p "$dest"
-            cp -r "/tmp/tools/$repo/docs/." "$dest/"
 
-            # MkDocs resolves index.md; GitHub's folder preview needs README.md.
-            # Normalise the build copy only — the source repo keeps its README.
-            if [ ! -f "$dest/README.md" ]; then
-              echo "# $repo" > "$dest/index.md"
+            if [ -d "$src/docs" ]; then
+              cp -r "$src/docs/." "$dest/"
+            fi
+
+            # The README is the section index. Root first, then a docs/README.md,
+            # then a stub. GitHub renders README.md at the repo root; MkDocs
+            # needs it named index.md.
+            if [ -f "$src/README.md" ]; then
+              cp "$src/README.md" "$dest/index.md"
             elif [ -f "$dest/README.md" ]; then
               mv "$dest/README.md" "$dest/index.md"
+            elif [ ! -f "$dest/index.md" ]; then
+              printf '# %s\n' "$repo" > "$dest/index.md"
             fi
+
+            # README links assume a repo-root layout. The content now sits flat
+            # in docs/tools/<repo>/, so strip the docs/ prefix from both
+            # relative and absolute forms or every one of them 404s.
+            sed -i \
+              -e 's#](docs/#](#g' \
+              -e 's#](./docs/#](#g' \
+              -e 's#src="docs/#src="#g' \
+              -e "s#https://github.com/cforqol/${repo}/blob/[^/]*/docs/#\#g" \
+              -e "s#https://github.com/cforqol/${repo}/tree/[^/]*/docs/#\#g" \
+              "$dest/index.md"
 
             echo "pulled cforqol/$repo"
           done < <(grep -vE '^\s*(#|$)' .github/tool-docs.txt)
