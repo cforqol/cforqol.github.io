@@ -63,9 +63,6 @@ jobs:
               cp -r "$src/docs/." "$dest/"
             fi
 
-            # The README is the section index. Root first, then a docs/README.md,
-            # then a stub. GitHub renders README.md at the repo root; MkDocs
-            # needs it named index.md.
             if [ -f "$src/README.md" ]; then
               cp "$src/README.md" "$dest/index.md"
             elif [ -f "$dest/README.md" ]; then
@@ -74,16 +71,17 @@ jobs:
               printf '# %s\n' "$repo" > "$dest/index.md"
             fi
 
-            # README links assume a repo-root layout. The content now sits flat
-            # in docs/tools/<repo>/, so strip the docs/ prefix from both
-            # relative and absolute forms or every one of them 404s.
-            sed -i \
-              -e 's#](docs/#](#g' \
-              -e 's#](./docs/#](#g' \
-              -e 's#src="docs/#src="#g' \
-              -e "s#https://github.com/cforqol/${repo}/blob/[^/]*/docs/#\#g" \
-              -e "s#https://github.com/cforqol/${repo}/tree/[^/]*/docs/#\#g" \
-              "$dest/index.md"
+            # README links assume a repo-root layout; content now sits flat in
+            # docs/tools/<repo>/, so strip the docs/ prefix or every one 404s.
+            if [ -f "$dest/index.md" ]; then
+              sed -i \
+                -e 's#](docs/#](#g' \
+                -e 's#](./docs/#](#g' \
+                -e 's#src="docs/#src="#g' \
+                -e "s#https://github.com/cforqol/${repo}/blob/[^/]*/docs/##g" \
+                -e "s#https://github.com/cforqol/${repo}/tree/[^/]*/docs/##g" \
+                "$dest/index.md"
+            fi
 
             echo "pulled cforqol/$repo"
           done < <(grep -vE '^\s*(#|$)' .github/tool-docs.txt)
