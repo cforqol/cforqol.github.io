@@ -23,7 +23,3 @@ Promote a page when you've leaned on it twice without editing it. Demote it when
 ## Pages
 
 {{ index_of("handbook") }}
-
-## Templates
-
-- [Handbook page](../templates/handbook-page.md)
