@@ -1,5 +1,3 @@
-Here is the documentation adjusted to match the exact template format provided:
-
 # Native Vim Search (`vimgrep` & `:grep`)
 
 Built-in Vim commands for searching across multiple files and managing project working directories without relying on plugins.
