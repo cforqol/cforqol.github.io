@@ -23,4 +23,12 @@ Everything here exists to save future-me time, money, or annoyance. If it doesn'
 
     [Browse →](handbook/index.md)
 
+-   **Tools**
+
+    ---
+
+    Things I built. Each one has its own repo, and its docs live there.
+
+    [Browse →](tools/index.md)
+
 </div>
