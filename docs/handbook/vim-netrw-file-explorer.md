@@ -4,8 +4,6 @@ date: 2023-10-26
 ---
 # Vim's Built-in File Explorer (netrw) with fzf
 
-<span class="status status-draft">draft</span>
-
 A guide to using Vim's default file explorer (`netrw`) for structural browsing and `fzf` for rapid file searching, including how to handle deep directory trees.
 
 ## Prerequisites
