@@ -1,11 +1,11 @@
 ---
 tags: [zfs, storage, filesystem, snapshots]
 ---
+
 # zfs
 
 Datasets, properties, snapshots, send/recv.
-
-Pool-level work is [zpool](zpool.md). Naming, retention and recovery live in the [ZFS snapshots handbook](../handbook/zfs/snapshots.md).
+Pool-level work is [zpool](zpool.md). Naming, retention and recovery live in [ZFS snapshots](../setup/zfs/snapshots.md).
 
 ## Subcommands
 
@@ -114,5 +114,5 @@ zfs send -w tank/secret@snap | ssh host zfs recv backup/secret
 ## Related
 
 - [zpool](zpool.md) — pool creation, scrubs, disk replacement
-- [ZFS snapshots handbook](../handbook/zfs/snapshots.md) — naming, retention, automation, recovery
+- [ZFS snapshots](../setup/zfs/snapshots.md) — naming, retention, automation, recovery
 - [borgbackup](borgbackup.md) — offsite, deduplicated copies

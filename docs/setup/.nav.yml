@@ -1,3 +1,7 @@
 nav:
+  - index.md
   - Vim setup: vim-setup.md
-  - Project navigation reference: vim-project-workflow-navigation-reference.md
+  - Vim project navigation: vim-project-workflow-navigation-reference.md
+  - Vim netrw: vim-netrw-file-explorer.md
+  - Screen: screen-capture-and-command-mode.md
+  - ZFS: zfs
