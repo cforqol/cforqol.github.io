@@ -83,7 +83,3 @@ You give up ZFS mount ordering and `zfs mount -a`. Use it only where something r
 - A `legacy` dataset is invisible to `zfs mount -a` and to `zfs-mount.service`.
 - Changing a mountpoint doesn't migrate data. Moving it to a *different dataset* is `zfs rename` or a copy.
 - `sharenfs` / `zfs share` is independent of `mountpoint`. Sharing doesn't imply mounting.
-
-## Change log
-
-- 2026-10-25 — first write-up
