@@ -1,6 +1,6 @@
 site_name: cforqol
 site_url: https://cforqol.github.io/
-site_description: Quick starts and a handbook for things that make life easier.
+site_description: Setup, troubleshooting, and cheat sheets for things that make life easier.
 repo_url: https://github.com/cforqol/cforqol.github.io
 repo_name: cforqol/cforqol.github.io
 edit_uri: edit/main/docs/
