@@ -157,7 +157,3 @@ Alert when `usedbysnapshots` passes a third of pool capacity. That's where pruni
 | pool filling up | snapshots holding blocks | check `usedbysnapshots`, hold what matters, then prune |
 | the snapshot you needed is gone | pruned before you noticed | go to the offsite borg repo |
 | sanoid stopped | timer failed or config typo | `systemctl status sanoid.timer`, `journalctl -u sanoid` |
-
-## Change log
-
-- 2026-10-25 — first write-up
