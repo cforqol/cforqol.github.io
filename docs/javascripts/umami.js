@@ -1,7 +1,17 @@
 // Umami pageviews for Material's instant navigation.
-// The script tag has data-auto-track="false", so every pageview comes from here.
-document$.subscribe(function () {
-  if (window.umami) {
-    window.umami.track()
-  }
+// The Umami tag is deferred, so wait for load — otherwise window.umami
+// isn't defined yet and the initial pageview is dropped.
+let last = null
+
+function track() {
+  if (!window.umami) return
+  const url = location.pathname + location.search
+  if (url === last) return
+  last = url
+  window.umami.track()
+}
+
+window.addEventListener("load", function () {
+  track()
+  document$.subscribe(track)
 })
