@@ -1,25 +1,9 @@
 # Handbook
 
-How my stuff is set up, and why. Written for future-me, who has forgotten everything.
+Specific things that broke, and what actually fixed them.
 
-Long-form by design. Read once, then come back when something breaks.
+One problem per page: what you saw, what the cause turned out to be, the fix that worked, and how to spot it next time. Written for future-me at 2am, who remembers none of it.
 
-## Status
-
-Every page carries one of these at the top:
-
-<div markdown>
-
-<span class="status status-draft">draft</span> — captured while doing it, steps may be wrong
-
-<span class="status status-working">working</span> — steps correct, "why" still thin
-
-<span class="status status-stable">stable</span> — re-walked end to end, dated, gotchas recorded
-
-</div>
-
-Promote a page when you've leaned on it twice without editing it. Demote it when something drifts.
-
-## Pages
+How a machine is *configured* lives in [Setup](../setup/index.md). The flags live in [Quick starts](../quickstarts/index.md).
 
 {{ index_of("handbook") }}
