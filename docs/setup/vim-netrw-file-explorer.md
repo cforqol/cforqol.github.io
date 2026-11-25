@@ -103,7 +103,3 @@ augroup END
 | `<Enter>` on a directory opens a new buffer instead of expanding a tree | `netrw` list style is not set to Tree View. | Press `i` to cycle views until you see the Tree, or set `let g:netrw_liststyle = 3` in your `vimrc`. |
 | Files open in the `netrw` sidebar instead of the main editing window | Default split behavior isn't configured to reuse the previous window. | Set `let g:netrw_browse_split = 4` in your `vimrc`. |
 | The `netrw` banner takes up a third of the sidebar | The default help banner is enabled. | Set `let g:netrw_banner = 0` in your `vimrc`, or press `I` to toggle it. |
-
-## Change log
-
-- 2023-10-26 — first write-up
