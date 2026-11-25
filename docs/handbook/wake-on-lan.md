@@ -1,7 +1,7 @@
 ---
 tags: [networking, wake-on-lan, ubuntu, openwrt, bonding, pbr]
-date: 2025-01-15
 ---
+
 # Wake-on-LAN: Sending, Configuring, and Troubleshooting Magic Packets
 
 A comprehensive guide to waking a powered-off Ubuntu server via Wake-on-LAN, including setup, bonding quirks, OpenWrt firewall/PBR routing, and hardware diagnostics.
