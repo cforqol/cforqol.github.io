@@ -1,3 +1,7 @@
+---
+tags: [vim]
+---
+
 # My Personal Vim Setup
 
 Vim version: gVim 9.x recommended; minimum **Vim 7.3.885+ with `+lua`**  
