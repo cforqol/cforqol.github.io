@@ -81,3 +81,173 @@ Exact commands for all of it are in the reference below.
 ```bash
 sudo apt update
 sudo apt install wakeonlan
+```
+
+### 2. Find the server's MAC address while it's off
+
+Check these in order:
+
+1. **Router DHCP leases** — log into the router and look at Connected Devices / DHCP Client List. Powered-off devices usually stay in the lease table.
+2. **ARP cache on Ubuntu** — `ip neigh` (or `arp -a`) on any machine that recently talked to the server.
+3. **Router static IP reservations** — the MAC is listed next to the reservation.
+4. **Physical hardware** — sticker on the back or bottom of the server, or on the NIC. A brief boot into BIOS/UEFI also shows it under System/Network Information.
+
+### 3. Send the magic packet
+
+```bash
+# basic broadcast (default 255.255.255.255)
+wakeonlan <MAC_ADDRESS>
+
+# target a specific subnet broadcast (cross-subnet WoL)
+wakeonlan -i 10.0.0.255 <MAC_ADDRESS>
+```
+
+### 4. Use hostnames instead of MACs
+
+WoL can't resolve names, so pick a workaround.
+
+**Option A — bash alias, single server:**
+
+```bash
+# add to ~/.bashrc
+alias wake-myserver='wakeonlan 1A:2B:3C:4D:5E:6F'
+```
+
+**Option B — lookup script, multiple servers:**
+
+```bash
+#!/bin/bash
+# save to /usr/local/bin/wake
+declare -A MACS=(
+    ["myserver"]="1A:2B:3C:4D:5E:6F"
+    ["nas"]="AA:BB:CC:DD:EE:FF"
+    ["desktop"]="11:22:33:44:55:66"
+)
+if [ -z "$1" ]; then
+    echo "Usage: wake <hostname>"
+    echo "Available hosts: ${!MACS[@]}"
+    exit 1
+fi
+HOST=$1
+MAC=${MACS[$HOST]}
+if [ -n "$MAC" ]; then
+    echo "Sending magic packet to $HOST ($MAC)..."
+    wakeonlan $MAC
+else
+    echo "Error: Host '$HOST' not found."
+    exit 1
+fi
+```
+
+**Option C — query the router dynamically (OpenWrt):**
+
+```bash
+# one-liner, requires SSH keys to the router
+ssh root@192.168.1.1 "grep -i my-server /tmp/dhcp.leases | awk '{print \$2}'" | xargs wakeonlan
+```
+
+The `\$2` is deliberate — it stops the local shell expanding `$2` before the command reaches the router.
+
+### 5. Configure WoL on the server's NIC
+
+```bash
+sudo apt install ethtool
+ip link                    # find the interface name (e.g. enp3s0)
+sudo ethtool enp3s0        # look for "g" in "Supports Wake-on"
+```
+
+Enable it temporarily:
+
+```bash
+sudo ethtool -s enp3s0 wol g
+```
+
+Make it permanent with a systemd unit:
+
+```bash
+sudo nano /etc/systemd/system/wol@.service
+```
+
+```ini
+[Unit]
+Description=Wake-on-LAN for %i
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ethtool -s %i wol g
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl enable wol@enp3s0.service
+sudo systemctl start wol@enp3s0.service
+```
+
+### 6. Bonded interfaces
+
+WoL can't be enabled on `bond0`. Enable it on each physical slave:
+
+```bash
+sudo ethtool -s eno1 wol g
+sudo ethtool -s eno2 wol g
+```
+
+```bash
+sudo systemctl enable wol@eno1.service
+sudo systemctl enable wol@eno2.service
+```
+
+### 7. OpenWrt firewall for cross-subnet WoL
+
+Sending from WiFi (`10.0.1.0/24`) to LAN (`10.0.0.0/24`):
+
+```bash
+uci add firewall rule
+uci set firewall.@rule[-1].name='Allow-WoL-WLAN-to-LAN'
+uci set firewall.@rule[-1].src='wlan'
+uci set firewall.@rule[-1].dest='lan'
+uci set firewall.@rule[-1].proto='udp'
+uci set firewall.@rule[-1].dest_port='9'
+uci set firewall.@rule[-1].target='ACCEPT'
+uci commit firewall
+/etc/init.d/firewall restart
+```
+
+Inter-zone forwarding also has to exist:
+
+```bash
+uci add firewall forwarding
+uci set firewall.@forwarding[-1].src='wlan'
+uci set firewall.@forwarding[-1].dest='lan'
+uci commit firewall
+/etc/init.d/firewall restart
+```
+
+### 8. Stop PBR intercepting local traffic
+
+If `pbr` routes traffic through WireGuard (`wg1`), it swallows the broadcast and kills it in the tunnel. Tell it to ignore local subnets:
+
+```bash
+uci add_list pbr.config.ignored_destinations='10.0.0.0/24'
+uci add_list pbr.config.ignored_destinations='10.0.1.0/24'
+uci add_list pbr.config.ignored_destinations='10.0.0.255'
+uci commit pbr
+/etc/init.d/pbr restart
+```
+
+If `ignored_destinations` doesn't exist in your PBR version, build a bypass policy instead:
+
+```bash
+uci add pbr policy
+uci set pbr.@policy[-1].name='Bypass-Local-LAN'
+uci set pbr.@policy[-1].src_addr='10.0.0.0/24 10.0.1.0/24'
+uci set pbr.@policy[-1].dest_addr='10.0.0.0/24 10.0.1.0/24 10.0.0.255'
+uci set pbr.@policy[-1].chain='PREROUTING'
+uci set pbr.@policy[-1].action='Disable'
+uci reorder pbr.@policy[0]=0
+uci commit pbr
+/etc/init.d/pbr restart
+```
