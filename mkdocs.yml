@@ -77,6 +77,9 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - javascripts/umami.js
+
 extra:
   social:
     - icon: fontawesome/brands/github
