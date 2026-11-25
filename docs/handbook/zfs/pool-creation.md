@@ -1,10 +1,8 @@
 ---
 tags: [zfs, storage, pool]
-date: 2026-10-25
 ---
-# Pool creation
 
-<span class="status status-draft">draft</span>
+# Pool creation
 
 Creating `tank`. Read [Vdevs and mirrors](vdevs.md) first if you haven't picked a topology — it's the decision you can't take back.
 
