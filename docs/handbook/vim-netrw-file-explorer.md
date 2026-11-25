@@ -1,7 +1,7 @@
 ---
 tags: [vim, netrw, fzf, workflow, file-management]
-date: 2023-10-26
 ---
+
 # Vim's Built-in File Explorer (netrw) with fzf
 
 A guide to using Vim's default file explorer (`netrw`) for structural browsing and `fzf` for rapid file searching, including how to handle deep directory trees.
