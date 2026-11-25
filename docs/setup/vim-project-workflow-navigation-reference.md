@@ -1,3 +1,6 @@
+---
+tags: [vim]
+---
 
 # Vim Project Workflow Navigation Reference
 
