@@ -1,36 +1,29 @@
 ---
 tags: []
-date: YYYY-MM-DD
+search:
+  exclude: true
 ---
 # Title
 
-<span class="status status-draft">draft</span>
+One line on what broke and what fixed it.
 
-One line on what this covers and when to read it.
+## Symptoms
 
-## Prerequisites
+What you actually saw. Paste the exact error text — that's what future-you will search for.
 
-- 
+## Cause
 
-## Why it's built this way
+The real reason, once you found it.
 
-The reasoning, not the steps. What you optimised for, what you rejected.
+## Fix
 
-## Setup
-
-### 1. 
+The steps that worked.
 
 ## Gotchas
 
 !!! warning
-    
 
-## If it breaks
+## If it breaks again
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-|  |  |  |
-
-## Change log
-
-- YYYY-MM-DD — first write-up
