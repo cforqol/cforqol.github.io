@@ -1,10 +1,8 @@
 ---
 tags: [zfs, storage, mountpoints]
-date: 2026-10-25
 ---
-# Mountpoints
 
-<span class="status status-draft">draft</span>
+# Mountpoints
 
 Where datasets appear in the filesystem, and the layout that keeps the pool root out of the way.
 
