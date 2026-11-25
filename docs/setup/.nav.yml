@@ -4,4 +4,5 @@ nav:
   - Vim project navigation: vim-project-workflow-navigation-reference.md
   - Vim netrw: vim-netrw-file-explorer.md
   - Screen: screen-capture-and-command-mode.md
+  - Git-crypt: git-crypt.md
   - ZFS: zfs
