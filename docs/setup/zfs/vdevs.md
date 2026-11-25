@@ -88,7 +88,3 @@ Idle until a disk fails, then pulled in automatically. Worth having on a box you
 - Always `/dev/disk/by-id/`. `/dev/sdX` reorders on reboot and the pool comes up degraded or won't import at all.
 - `zpool upgrade` writes new feature flags. Older kernels then can't import the pool.
 - `zpool status -v` before and after every change. `zpool history` tells you what you did last week.
-
-## Change log
-
-- 2026-10-25 — first write-up
