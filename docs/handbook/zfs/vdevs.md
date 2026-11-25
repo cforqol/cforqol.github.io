@@ -1,10 +1,8 @@
 ---
 tags: [zfs, storage, pool]
-date: 2026-10-25
 ---
-# Vdevs and mirrors
 
-<span class="status status-draft">draft</span>
+# Vdevs and mirrors
 
 Topology, growing a pool, and why `zpool add` isn't `zpool attach`.
 
