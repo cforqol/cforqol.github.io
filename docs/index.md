@@ -1,6 +1,6 @@
 # cforqol
 
-Quick starts and a handbook for things that make life easier.
+Setup, troubleshooting, and cheat sheets for things that make life easier.
 
 Everything here exists to save future-me time, money, or annoyance. If it doesn't, it isn't on this site.
 
@@ -10,16 +10,23 @@ Everything here exists to save future-me time, money, or annoyance. If it doesn'
 
     ---
 
-    Cheat sheets for tools you already use and keep forgetting the flags for.
-    One screen each.
+    The flags and recipes I actually use, one screen per tool.
 
     [Browse →](quickstarts/index.md)
+
+-   **Setup**
+
+    ---
+
+    How my machines and tools are configured, and why.
+
+    [Browse →](setup/index.md)
 
 -   **Handbook**
 
     ---
 
-    How my stuff is set up, and why. Written for future-me, who has forgotten everything.
+    Specific things that broke, and what actually fixed them.
 
     [Browse →](handbook/index.md)
 
