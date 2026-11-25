@@ -1,6 +1,9 @@
 ---
 tags: []
+search:
+  exclude: true
 ---
+
 # tool-name
 
 One line on what it does.
