@@ -96,7 +96,3 @@ Then create datasets — layout is in [Mountpoints](mountpoints.md).
 - One vdev means one failure domain. See [Vdevs and mirrors](vdevs.md).
 - A failed `cache` or `log` device never loses data. A failed top-level data vdev always does.
 - Pool names are global to the host. An imported disk from another machine can collide.
-
-## Change log
-
-- 2026-10-25 — first write-up
