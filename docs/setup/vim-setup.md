@@ -4,6 +4,8 @@ tags: [vim]
 
 # My Personal Vim Setup
 
+A guide for my personal vim setup. Focuses on minimum and lightweight.
+
 Vim version: gVim 9.x recommended; minimum **Vim 7.3.885+ with `+lua`**  
 Plugin manager: vim-plug  
 Config location: `~/.vimrc` and `~/.gvimrc`
