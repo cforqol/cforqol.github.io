@@ -1,10 +1,8 @@
 ---
 tags: [zfs, storage, snapshots]
-date: 2026-10-25
 ---
-# Snapshots
 
-<span class="status status-draft">draft</span>
+# Snapshots
 
 How snapshots get named, kept and pruned here — and what to actually do when something needs recovering.
 
